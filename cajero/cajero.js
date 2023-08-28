@@ -73,5 +73,3 @@ var papeles = 0;
 var resultado = document.getElementById("resultado");
 var b = document.getElementById("extraer");
 b.addEventListener("click", entregarDinero);
-
-sdkfjadsklfjadslfjl
