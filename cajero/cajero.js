@@ -1,12 +1,23 @@
 class Billete
 {
-	constructor(v,c)
+	constructor(d, v, c)
 	{
-	/*	this.denominacion = d;*/
+		
+		this.imagen = new Image();
+
+		this.denominacion = d;
 		this.valor = v;
 		this.cantidad = c;
+
+		this.imagen.src = imagenes[this.denominacion];
+	}
+
+	mostrar()
+	{
+		document.body.appendChild(this.imagen);
 	}
 }
+
 
 function entregarDinero()
 {
@@ -28,7 +39,7 @@ function entregarDinero()
 				papeles = div;
 			}
 
-			entregado.push(new Billete(bi.valor, papeles));
+			entregado.push(new Billete (bi.denominacion, bi.valor, papeles));
 			dinero = dinero - (bi.valor * papeles);
 		}
 	}
@@ -45,12 +56,11 @@ function entregarDinero()
 			if (e.cantidad > 0) 
 			{
 				resultado.innerHTML += e.cantidad + " billetes de $" + e.valor + "<br/>";
+				e.mostrar();
 			}
 		}
 	}
 }
-
-var caja = [];
 
 var imagenes = [];
 
@@ -60,20 +70,22 @@ imagenes["Veinte"] = "veinte.png";
 imagenes["Diez"] = "diez.png";
 imagenes["Cinco"] = "cinco.png"
 
+
+var caja = [];
 var entregado = [];
 
-caja.push(new Billete(100, 5));
+/*caja.push(new Billete(100, 5));
 caja.push(new Billete(50, 10));
 caja.push(new Billete(20, 30));
 caja.push(new Billete(10, 10));
-caja.push(new Billete(5 ,5));
+caja.push(new Billete(5 ,5));*/
 
-/*caja.push(new Billete("Cien", 100, 5));
+caja.push(new Billete("Cien", 100, 5));
 caja.push(new Billete("Cincuenta", 50, 10));
 caja.push(new Billete("Veinte", 20, 30));
 caja.push(new Billete("Diez", 10, 10));
 caja.push(new Billete("Cinco", 5 ,5));
-*/
+
 var dinero = 0;
 var div = 0;
 var papeles = 0;
