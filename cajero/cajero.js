@@ -1,8 +1,8 @@
 class Billete
 {
-	constructor(d,v,c)
+	constructor(v,c)
 	{
-		this.denominacion = d;
+	/*	this.denominacion = d;*/
 		this.valor = v;
 		this.cantidad = c;
 	}
@@ -61,11 +61,19 @@ imagenes["Diez"] = "diez.png";
 imagenes["Cinco"] = "cinco.png"
 
 var entregado = [];
-caja.push(new Billete("Cien", 100, 5));
+
+caja.push(new Billete(100, 5));
+caja.push(new Billete(50, 10));
+caja.push(new Billete(20, 30));
+caja.push(new Billete(10, 10));
+caja.push(new Billete(5 ,5));
+
+/*caja.push(new Billete("Cien", 100, 5));
 caja.push(new Billete("Cincuenta", 50, 10));
 caja.push(new Billete("Veinte", 20, 30));
 caja.push(new Billete("Diez", 10, 10));
 caja.push(new Billete("Cinco", 5 ,5));
+*/
 var dinero = 0;
 var div = 0;
 var papeles = 0;
