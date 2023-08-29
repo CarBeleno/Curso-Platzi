@@ -12,19 +12,15 @@ class Billete
 		this.imagen.src = imagenes[this.denominacion];
 	}
 
-	mostrar()
-	{
-		document.body.appendChild(this.imagen);
-	}
 }
+
 
 
 function entregarDinero()
 {
 	var t = document.getElementById("dinero");
 	dinero = parseInt(t.value);
-
-
+	
 	for(var bi of caja)
 	{
 		if (dinero > 0) 
@@ -55,8 +51,11 @@ function entregarDinero()
 		{
 			if (e.cantidad > 0) 
 			{
-				resultado.innerHTML += e.cantidad + " billetes de $" + e.valor + "<br/>";
-				e.mostrar();
+				resultado.innerHTML +=
+				`<div class="imagen_contenedor">`
+				+ e.cantidad + " billetes de &nbsp;" 
+				+`<img class="lineacion-vertical" src="${e.imagen.src}" alt="Image">`
+				+ "</div>";
 			}
 		}
 	}
@@ -73,12 +72,6 @@ imagenes["Cinco"] = "cinco.png"
 
 var caja = [];
 var entregado = [];
-
-/*caja.push(new Billete(100, 5));
-caja.push(new Billete(50, 10));
-caja.push(new Billete(20, 30));
-caja.push(new Billete(10, 10));
-caja.push(new Billete(5 ,5));*/
 
 caja.push(new Billete("Cien", 100, 5));
 caja.push(new Billete("Cincuenta", 50, 10));
