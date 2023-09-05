@@ -33,14 +33,7 @@ function entregarDinero()
 	var t = document.getElementById("dinero");
 	var dinero = parseInt(t.value);
 
-/*	saldo -= dinero;	
-	if (saldo > 0) 
-	{
-		mostrarSaldo.innerHTML = "Saldo anterior: " + saldo;
-		historialTransacciones.push(saldo);		
-	} */
-
-	
+	saldo -= dinero;	
 
 	var entregado = [];
 
@@ -63,7 +56,6 @@ function entregarDinero()
 		}
 	}
 
-
 	if (dinero <= saldo) 
 	{
 
@@ -84,12 +76,11 @@ function entregarDinero()
 				resultado.appendChild(divContenedor);
 			}
 		}
-		saldo -= dinero;
 		historialTransacciones.push("$ " + saldo);
 	}
 	else 
 	{
-		historialTransacciones.push("insuficiente");
+		historialTransacciones.push("Insuficiente");
 		resultado.innerHTML = "Este cajero no puede darte esa cantidad";
 	}	
 	mostrarTransacciones();
@@ -100,23 +91,20 @@ var historialTransacciones = [];
 
 function mostrarTransacciones ()
 {
-	var historial = document.getElementById("historial");
 
-	historial.innerHTML = '';
-
-	var h3 = document.createElement('h3');
-	h3.textContent = "Historial de transacciones";
-	historial.appendChild(h3);
-
+	var tabla = document.querySelector("table");
+	tabla.innerHTML = "<tr> <th>Transaccion No.</th> <th>Descripcion</th> <th>Monto a retirar</th> <th>Saldo</th> </tr>"
 
 	for (var i = 0; i < historialTransacciones.length; i++) 
 	{
-		var valorTransaccion = historialTransacciones[i];
+		var valorSaldo = historialTransacciones[i];
 
-
-		var p = document.createElement('p');
-		p.textContent = 'Transacción No. ' + (i + 1) + ': ' + "saldo " + valorTransaccion + " dinero que se extajo $" + dinero.value;
-		historial.appendChild(p);
+		tabla.innerHTML += "<tr><td>"
+							+ (i + 1) + "</td><td>"
+							+ "Solicitud retiro" + "</td><td>"
+							+ "$ " + dinero.value + "</td><td>"
+							+ valorSaldo
+							+"</td></tr>";
 	}
 
 }
