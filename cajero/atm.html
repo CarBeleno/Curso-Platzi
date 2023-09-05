@@ -11,17 +11,53 @@
 		display: flex;
 		align-items: center;
 	}
+	img
+	{
+		margin-left: 5px;
+	}
+	.columnas
+	{
+		display: flex;
+	}
+	.columna
+	{
+		flex: 1;
+		padding: 10px;
+		border: 1px solid #ccc;
+	}
+	.text-center
+	{
+		text-align: center;
+	}
 </style>
 <body>
-	<P>
-		<img src="cajero.gif">
-	</P>
-	<p>
-		<input type="number" id="dinero">
-		<input type="button" value="Extraer" id="extraer">
-	</p>
-	<p id="mostrarSaldo"></p>
-	<p id="resultado"></p>
+	<div class="columnas">
+
+		<div class="columna">
+			<h2 class="text-center">CAJERO</h2>
+			<!-- Imagen cajeto -->
+			<P>
+				<img src="cajero.gif">
+			</P>
+
+			<!-- Formulario extaer dinero -->
+			<form id="formulario">
+				<input type="number" id="dinero">
+				<input type="button" value="Extraer" id="extraer">
+				<input type="button"  value="Limpiar" id="limpiar">
+			</form>
+
+			<!-- Mostrar saldo y restulado -->
+			<p id="mostrarSaldo"></p>
+			<p id="resultado"></p>	
+		</div>
+
+		<!-- Historial de transacciones -->
+		<div class="columna text-center" id="historial">
+			<h3>Historial de transacciones</h3>
+		</div>
+
+	</div>
 	<script src="cajero.js"></script>
 </body>
 </html>
