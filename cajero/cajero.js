@@ -28,12 +28,24 @@ caja.push(new Billete("Cinco", 5 ,5));
 
 var saldo = caja.reduce((total, billete) => total + billete.valor * billete.cantidad, 0);
 
+var historialTransacciones = [];
+
+function agregarTransaccion(monto, saldo)
+{
+	var transaccion = {
+		monto: monto,
+		saldo: saldo
+	};
+	historialTransacciones.push(transaccion);
+}
+
 function entregarDinero()
 {
 	var t = document.getElementById("dinero");
 	var dinero = parseInt(t.value);
-
+	
 	saldo -= dinero;	
+	agregarTransaccion(dinero, saldo);
 
 	var entregado = [];
 
@@ -51,14 +63,13 @@ function entregarDinero()
 				papeles = cantidadEntergar;
 			}
 
-			entregado.push(new Billete (billete.denominacion, billete.valor, papeles, saldo));
+			entregado.push(new Billete (billete.denominacion, billete.valor, papeles));
 			dinero = dinero - (billete.valor * papeles);
 		}
 	}
 
 	if (dinero <= saldo) 
 	{
-
 		for (var e of entregado) {
 			if (e.cantidad > 0) {
 				var divContenedor = document.createElement("div");
@@ -76,18 +87,15 @@ function entregarDinero()
 				resultado.appendChild(divContenedor);
 			}
 		}
-		historialTransacciones.push("$ " + saldo);
+		mostrarSaldo.innerHTML = "Saldo anterior: " + saldo;
 	}
 	else 
 	{
-		historialTransacciones.push("Insuficiente");
 		resultado.innerHTML = "Este cajero no puede darte esa cantidad";
 	}	
-	mostrarTransacciones();
+	mostrarTransacciones();	
 }
 
-/*historial de transacciones*/
-var historialTransacciones = [];
 
 function mostrarTransacciones ()
 {
@@ -97,19 +105,17 @@ function mostrarTransacciones ()
 
 	for (var i = 0; i < historialTransacciones.length; i++) 
 	{
-		var valorSaldo = historialTransacciones[i];
+		var transaccion = historialTransacciones[i];
 
 		tabla.innerHTML += "<tr><td>"
 							+ (i + 1) + "</td><td>"
 							+ "Solicitud retiro" + "</td><td>"
-							+ "$ " + dinero.value + "</td><td>"
-							+ valorSaldo
+							+ transaccion.monto + "</td><td>"
+							+ transaccion.saldo
 							+"</td></tr>";
 	}
 
 }
-
-
 
 var resultado = document.getElementById("resultado");
 var b = document.getElementById("extraer");
@@ -122,5 +128,5 @@ limpiar.addEventListener("click", () =>{
 	dinero.value = '';
 });
 
-var mostrarSaldo = document.getElementById("mostrarSaldo");
-mostrarSaldo.innerHTML = "Saldo: " + saldo;
+var mostrarSaldo = document.getElementById("saldo");
+mostrarSaldo.textContent = "Saldo: " + saldo;
