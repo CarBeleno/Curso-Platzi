@@ -1,132 +1,75 @@
 class Billete
 {
-	constructor(denominacion, valor, cantidad)
+	constructor(valor, cantidad)
 	{
-		this.imagen = new Image();
-		this.denominacion = denominacion;
-		this.valor = valor;
+		this.valor =  valor;
 		this.cantidad = cantidad;
-		this.imagen.src = imagenes[this.denominacion];
 	}
 }
-
-var imagenes = [];
-
-imagenes["Cien"] = "cien.png";
-imagenes["Cincuenta"] = "cincuenta.png";
-imagenes["Veinte"] = "veinte.png";
-imagenes["Diez"] = "diez.png";
-imagenes["Cinco"] = "cinco.png";
 
 var caja = [];
 
-caja.push(new Billete("Cien", 100, 5));
-caja.push(new Billete("Cincuenta", 50, 10));
-caja.push(new Billete("Veinte", 20, 30));
-caja.push(new Billete("Diez", 10, 10));
-caja.push(new Billete("Cinco", 5 ,5));
+caja.push(new Billete(100, 5));
+caja.push(new Billete(50, 10));
+caja.push(new Billete(20, 30));
+caja.push(new Billete(10, 10));
+caja.push(new Billete(5, 5));
 
-var saldo = caja.reduce((total, billete) => total + billete.valor * billete.cantidad, 0);
+//Cantidad de dinero en caja
+var dinero =  0;
 
-var historialTransacciones = [];
+var entregado = [];
 
-function agregarTransaccion(monto, saldo)
+//Cantidad de billestes por denominación
+var div = 0;
+
+//Cantidad de billestes total
+var papeles = 0;
+
+//Obtener id boton
+var boton = document.getElementById("extraer");
+
+
+function entregarDinero() 
 {
-	var transaccion = {
-		monto: monto,
-		saldo: saldo
-	};
-	historialTransacciones.push(transaccion);
-}
+	//Obtener id de caja de texto
+	var dineroInput = document.getElementById("dinero");
+	//toma el valor de la caja de texto y lo covierte de texto a entero
+	dinero = parseInt(dineroInput.value);
 
-function entregarDinero()
-{
-	var t = document.getElementById("dinero");
-	var dinero = parseInt(t.value);
-	
-	saldo -= dinero;	
-	agregarTransaccion(dinero, saldo);
-
-	var entregado = [];
-
-	for(var billete of caja)
+	//Recorre c/elemento que hay en caja es decir c/billete
+	for (var billetes of caja)
 	{
-		if (dinero > 0) 
+		if(dinero > 0)
 		{
-			cantidadEntergar = Math.floor(dinero / billete.valor);
-			if (cantidadEntergar > billete.cantidad) 
+			div = Math.floor(dinero / billetes.valor);
+			if (div > billetes.cantidad) 
 			{
-				papeles = billete.cantidad;
+				papeles = billetes.cantidad;
 			}
 			else
 			{
-				papeles = cantidadEntergar;
+				papeles = div;
 			}
 
-			entregado.push(new Billete (billete.denominacion, billete.valor, papeles));
-			dinero = dinero - (billete.valor * papeles);
+			entregado.push(new Billete(billetes.valor, papeles));
+			dinero = dinero - (billetes.valor * papeles);
 		}
 	}
 
-	if (dinero <= saldo) 
+	if (dinero > 0) 
 	{
-		for (var e of entregado) {
-			if (e.cantidad > 0) {
-				var divContenedor = document.createElement("div");
-				divContenedor.className = "imagen_contenedor";
-
-				var contenido = document.createTextNode(" cantidad " +  e.cantidad + " billetes de ");
-
-				divContenedor.appendChild(contenido);
-
-				var img = document.createElement("img");
-				img.className = "lineacion-vertical";
-				img.src = e.imagen.src;
-				divContenedor.appendChild(img);
-
-				resultado.appendChild(divContenedor);
-			}
-		}
-		mostrarSaldo.innerHTML = "Saldo anterior: " + saldo;
+		resultado.innerHTML = "Este cajero tiene fondos insuficientes, para el dinero solicitado.";
 	}
-	else 
+	else
 	{
-		resultado.innerHTML = "Este cajero no puede darte esa cantidad";
-	}	
-	mostrarTransacciones();	
-}
-
-
-function mostrarTransacciones ()
-{
-
-	var tabla = document.querySelector("table");
-	tabla.innerHTML = "<tr> <th>Transaccion No.</th> <th>Descripcion</th> <th>Monto a retirar</th> <th>Saldo</th> </tr>"
-
-	for (var i = 0; i < historialTransacciones.length; i++) 
-	{
-		var transaccion = historialTransacciones[i];
-
-		tabla.innerHTML += "<tr><td>"
-							+ (i + 1) + "</td><td>"
-							+ "Solicitud retiro" + "</td><td>"
-							+ transaccion.monto + "</td><td>"
-							+ transaccion.saldo
-							+"</td></tr>";
+		for(var e of entregado)	
+		{
+			resultado.innerHTML += e.cantidad +  " billestes de $" + e.valor + "<br>";
+		}
 	}
 
 }
 
-var resultado = document.getElementById("resultado");
-var b = document.getElementById("extraer");
-b.addEventListener("click", entregarDinero);
-
-//Limpiar resultado para hacer otro extraer
-var limpiar = document.getElementById("limpiar");
-limpiar.addEventListener("click", () =>{
-	resultado.textContent = '';
-	dinero.value = '';
-});
-
-var mostrarSaldo = document.getElementById("saldo");
-mostrarSaldo.textContent = "Saldo: " + saldo;
+var resultado =  document.getElementById("resultado");
+boton.addEventListener("click", entregarDinero);

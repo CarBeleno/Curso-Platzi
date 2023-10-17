@@ -5,31 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Cajero Automatico</title>
 </head>
-<style>
-	.imagen_contenedor
-	{
-		display: flex;
-		align-items: center;
-	}
-	img
-	{
-		margin-left: 5px;
-	}
-	.columnas
-	{
-		display: flex;
-	}
-	.columna
-	{
-		flex: 1;
-		padding: 10px;
-		border: 1px solid #ccc;
-	}
-	.text-center
-	{
-		text-align: center;
-	}
-</style>
+
 <body>
 	<div class="columnas">
 
@@ -44,28 +20,10 @@
 			<form id="formulario">
 				<input type="number" id="dinero">
 				<input type="button" value="Extraer" id="extraer">
-				<input type="button"  value="Limpiar" id="limpiar">
 			</form>
-
-			<!-- Mostrar saldo y restulado -->
-			<div id="saldo">Saldo: </div>
 			<p id="resultado"></p>	
 		</div>
 
-		<!-- Historial de transacciones -->
-		<div class="columna text-center">
-			<table border="1">
-				<h3>Historial de transacciones</h3>
-				<tr>
-					<th>Transaccion No.</th>
-					<th>Descripcion</th>
-					<th>Monto a retirar</th>
-					<th>Saldo</th>
-					<th>Resultado</th>
-				</tr>
-			</table>
-
-		</div>
 
 	</div>
 	<script src="cajero.js"></script>
