@@ -81,17 +81,18 @@ function entregarDinero()
 		{
 			if (e.cantidad > 0) 
 			{
+				//se crea un conenedor en un div para que alinea imagen de billete con texto
 				divContenedor = document.createElement("div");
 				divContenedor.className = "imagen_contenedor";
 
-				var contenido = document.createTextNode(e.cantidad + " billetes de ");
-				divContenedor.appendChild(contenido);
+				//Se agrega a contenedor contenido en texto
+				var contenidoTexto = document.createTextNode(e.cantidad + " billetes de ");
+				divContenedor.appendChild(contenidoTexto);
 
-				var img = document.createElement("img");
-				img.src = e.imagen.src;
-				divContenedor.appendChild(img);
+				//Se agrega imagen
+				divContenedor.appendChild(e.imagen);
 
-				
+				//Se agrega contenedor a resultado
 				resultado.appendChild(divContenedor);
 			}
 		}
@@ -106,9 +107,9 @@ boton.addEventListener("click", entregarDinero);
 /*
 DESAFIO
 
-En vex de mostrar en texto, mostrar imagenes de billetes
-Caja sin recargar pagina se reste a la variable caja
-Se muestre cuanto es el saldo y cuanto dinero se ha entregado en cada tansaccion
-Hacer codigo mas compacto
+En vex de mostrar en texto, mostrar imagenes de billetes.
+Caja sin recargar pagina se reste a la variable caja.
+Se muestre cuanto es el saldo y cuanto dinero se ha entregado en cada tansaccion.
+Hacer codigo mas compacto.
 
 */
