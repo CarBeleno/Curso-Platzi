@@ -26,33 +26,39 @@ caja.push(new Billete("veinte", 20, 5));
 caja.push(new Billete("diez", 10, 10));
 caja.push(new Billete("cinco", 5, 5));
 
-//Cantidad de dinero en caja
 var dinero =  0;
-
 var entregado = [];
-
-//Cantidad de billestes por denominación
+var saldo = 0;
 var div = 0;
-
-//Cantidad de billestes total
 var papeles = 0;
+var saldoInicial = 0;
 
-//Obtener id boton
 var boton = document.getElementById("extraer");
+var resultado =  document.getElementById("resultado");
+var mostrarSaldo = document.getElementById("mostrarSaldo");
+
+//Operación para saldo inicial
+for(var i = 0; i < caja.length; i++)
+{
+	saldoInicial += caja[i].valor * caja[i].cantidad;
+}
+
+mostrarSaldo.innerHTML = "El saldo del cajero es: " + saldoInicial;
+
+boton.addEventListener("click", entregarDinero);
 
 
 function entregarDinero() 
 {
-	//Obtener id de caja de texto
+	//Obtener valor a extraer de caja de texto	
 	var dineroInput = document.getElementById("dinero");
-	//toma el valor de la caja de texto y lo covierte de texto a entero
 	dinero = parseInt(dineroInput.value);
+	//Saldo final
+	saldo -= dinero;
+	mostrarSaldo.innerHTML = "Saldo del cajero es: " + saldo;
 
-	    // Limpia el contenido existente en el resultado
-    resultado.innerHTML = "";
 
-	//Recorre c/elemento que hay en caja es decir c/billete
-	for (var billetes of caja)
+	for (var billetes of caja) //Recorre c/elemento que hay en caja es decir c/billete
 	{
 		if(dinero > 0)
 		{
@@ -84,32 +90,34 @@ function entregarDinero()
 				//se crea un conenedor en un div para que alinea imagen de billete con texto
 				divContenedor = document.createElement("div");
 				divContenedor.className = "imagen_contenedor";
-
 				//Se agrega a contenedor contenido en texto
 				var contenidoTexto = document.createTextNode(e.cantidad + " billetes de ");
 				divContenedor.appendChild(contenidoTexto);
-
 				//Se agrega imagen
 				divContenedor.appendChild(e.imagen);
-
 				//Se agrega contenedor a resultado
 				resultado.appendChild(divContenedor);
 			}
 		}
-	}
 
+	    // Limpiar la caja de dinero
+		dineroInput.value = "";
+		//Limpiar resultado al realizar otra transacción
+		entregado = [];
+	}
 }
 
-var resultado =  document.getElementById("resultado");
-boton.addEventListener("click", entregarDinero);
-
+for (var total of caja)
+{
+	saldo += total.valor * total.cantidad;
+}
 
 /*
 DESAFIO
 
-En vex de mostrar en texto, mostrar imagenes de billetes.
-Caja sin recargar pagina se reste a la variable caja.
-Se muestre cuanto es el saldo y cuanto dinero se ha entregado en cada tansaccion.
-Hacer codigo mas compacto.
+-En vex de mostrar en texto, mostrar imagenes de billetes.
+-Caja sin recargar pagina se reste a la variable caja.
+-Se muestre cuanto es el saldo y cuanto dinero se ha entregado en cada tansaccion.
+-Hacer codigo mas compacto.
 
 */

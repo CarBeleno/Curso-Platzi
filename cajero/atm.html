@@ -9,7 +9,6 @@
 
 <body>
 	<div class="columnas">
-
 		<div class="columna">
 			<h2 class="text-center">CAJERO</h2>
 			<!-- Imagen cajero -->
@@ -17,16 +16,19 @@
 				<img src="cajero.gif">
 			</P>
 
+			<div id="mostrarSaldo"></div>
+			<br>
+
 			<!-- Formulario extaer dinero -->
 			<form id="formulario">
-				<input type="number" id="dinero">
+				<input type="number" id="dinero" placeholder="Ingrese la cantidad de dinero">
 				<input type="button" value="Extraer" id="extraer">
 			</form>
 			<div id="resultado"></div>	
 		</div>
-
-
 	</div>
+
+
 	<script src="cajero.js"></script>
 </body>
 </html>
