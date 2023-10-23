@@ -32,6 +32,7 @@ var saldo = 0;
 var div = 0;
 var papeles = 0;
 var saldoInicial = 0;
+var historial = [];
 
 var boton = document.getElementById("extraer");
 var resultado =  document.getElementById("resultado");
@@ -53,12 +54,16 @@ function entregarDinero()
 	//Obtener valor a extraer de caja de texto	
 	var dineroInput = document.getElementById("dinero");
 	dinero = parseInt(dineroInput.value);
+
+	//agregar transaccino al historial
+	historial.push({monto: dinero});
+
 	//Saldo final
 	saldo -= dinero;
 	mostrarSaldo.innerHTML = "Saldo del cajero es: " + saldo;
 
-
-	for (var billetes of caja) //Recorre c/elemento que hay en caja es decir c/billete
+	//Recorre c/elemento que hay en caja es decir c/billete
+	for (var billetes of caja)
 	{
 		if(dinero > 0)
 		{
@@ -83,6 +88,9 @@ function entregarDinero()
 	}
 	else
 	{
+		// Limpiar el div de resultado antes de mostrar los nuevos resultados
+		resultado.innerHTML = "";
+
 		for(var e of entregado)	
 		{
 			if (e.cantidad > 0) 
@@ -99,18 +107,40 @@ function entregarDinero()
 				resultado.appendChild(divContenedor);
 			}
 		}
-
-	    // Limpiar la caja de dinero
+        // Limpiar la caja de dinero
 		dineroInput.value = "";
-		//Limpiar resultado al realizar otra transacción
+        // Limpiar arreglo de billetes entregados
 		entregado = [];
 	}
+	mostrarhistorial();
 }
 
 for (var total of caja)
 {
 	saldo += total.valor * total.cantidad;
 }
+
+var registrosMostrados = [];
+
+function mostrarhistorial()
+{
+	var historialMostrar = document.getElementById("historialMostrar");
+	historialMostrar.innerHTML += "";
+
+
+	for(var i = 0; i < historial.length; i++)
+	{
+		if (registrosMostrados.indexOf(i) === -1) 
+		{
+			historialMostrar.innerHTML +=
+			"Transacción No. " + (i + 1) + ": Retiro de $" + historial[i].monto + "<br><br>";
+
+			registrosMostrados.push(i);
+		}
+
+	}	
+}
+
 
 /*
 DESAFIO

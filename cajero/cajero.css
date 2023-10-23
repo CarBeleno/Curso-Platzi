@@ -7,4 +7,22 @@
 img 
 {
 	margin-left: 5px;
+
+}
+
+.columnas
+{
+	display: flex;
+}
+
+.columna
+{
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+
+.text-ceter
+{
+	
 }
